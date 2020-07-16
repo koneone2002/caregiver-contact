@@ -87,5 +87,71 @@ router.post(
     // res.send('User Route');
   }
 );
+// @ route   POST api/users
+// @desc     register user
+// @ access  Public
+// router.post(
+//   '/forgotPassword',
+//   [check('email', 'Please include a valid email').isEmail()],
+//   async (req, res) => {
+//     const errors = validationResult(req);
+//     if (!errors.isEmpty()) {
+//       return res.status(400).json({ errors: errors.array() });
+//     }
+//     // res.send('passed');
+
+//     const { name, email, password, passwordReset } = req.body;
+//     const userFields = {};
+//     userFields.user = password;
+//     if (password) userFields.password = password;
+//     try {
+//       let user = await User.findOne({ email });
+//       if (!user) {
+//         return res.status(400).json({ errors: [{ msg: 'No user found' }] });
+//       } else {
+//         if (user) {
+//           user = await User.findOneAndUpdate(
+//             { user: password },
+//             { $set: userFields },
+//             { new: true }
+//           );
+//           return res.json(user);
+//         }
+//         user = new User(userFields);
+//         await user.save();
+//         res.json(user);
+//       }
+
+//       const salt = await bcrypt.genSalt(10);
+//       user.password = await bcrypt.hash(password, salt);
+
+//       await user.save();
+//       //res.send('User saved');
+
+//       const payload = {
+//         user: {
+//           id: user.id
+//         }
+//       };
+//       jwt.sign(
+//         payload,
+//         config.get('jwtSecret'),
+//         {
+//           expiresIn: 360000
+//         },
+//         (err, token) => {
+//           if (err) throw err;
+//           res.json({ token });
+//         }
+//       );
+//     } catch (err) {
+//       console.error(err.message);
+//       res.status(500).send('Server Error');
+//     }
+
+//     // console.log(req.body);
+//     // res.send('User Route');
+//   }
+// );
 
 module.exports = router;
