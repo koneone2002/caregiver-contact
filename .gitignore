@@ -12,7 +12,7 @@
 # production
 /client/build
 /build
-
+/client/node_modules/
 
 # misc
 .DS_Store
