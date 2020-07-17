@@ -8,7 +8,7 @@
 /config/default.json
 # testing
 /coverage
-
+*/node_modules/
 # production
 /client/build
 /build
