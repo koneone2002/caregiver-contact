@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link } from 'react-router-dom';
 const Landing = () => {
   return (
     <section className='landing'>
@@ -7,15 +7,15 @@ const Landing = () => {
         <div className='landing-inner'>
           <h1 className='x-large'>Caregiver Connector</h1>
           <p className='lead'>
-            Create caregiver profile, share posts and find help
+            Create a caregiver profile, share posts and find help
           </p>
           <div className='buttons'>
-            <a href='register.html' className='btn btn-primary'>
+            <Link to='/register' className='btn btn-primary'>
               Sign Up
-            </a>
-            <a href='login.html' className='btn'>
+            </Link>
+            <Link to='/login' className='btn'>
               Login
-            </a>
+            </Link>
           </div>
         </div>
       </div>

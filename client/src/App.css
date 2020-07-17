@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;500;700;800&display=swap');
+
 /* Global Styles */
 :root {
   --primary-color: #006aa5;
@@ -14,7 +16,7 @@
 }
 
 body {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Heebo', sans-serif;
   font-size: 1rem;
   line-height: 1.6;
   background-color: #fff;
@@ -226,7 +228,7 @@ img {
 
 /* Overlay */
 .dark-overlay {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.5);
   position: absolute;
   top: 0;
   left: 0;
