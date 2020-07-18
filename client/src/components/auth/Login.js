@@ -2,13 +2,12 @@ import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Login = () => {
-  const [formData, setFormData] = useState({
+  const [user, setUser] = useState({
     email: '',
     password: ''
   });
-  const { email, password } = formData;
-  const onChange = e =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const { email, password } = user;
+  const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
   const onSubmit = async e => {
     e.preventDefault();
 
