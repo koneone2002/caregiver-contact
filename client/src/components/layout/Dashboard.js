@@ -1,11 +1,17 @@
-import React from 'react';
-
+import React, { useContext, useEffect } from 'react';
+import AuthContext from '../../context/auth/authContext';
 const Dashboard = () => {
+  const authContext = useContext(AuthContext);
+  useEffect(() => {
+    authContext.loadUser();
+    // eslint-disable-next-line
+  }, []);
+  const { user } = authContext;
   return (
     <section class='container'>
       <h1 class='large text-primary'>Dashboard</h1>
       <p class='lead'>
-        <i class='fas fa-user'></i> Welcome John Doe
+        <i class='fas fa-user'></i> Welcome {user && user.name}
       </p>
       <div class='dash-buttons'>
         <a href='create-profile.html' class='btn'>
@@ -39,7 +45,7 @@ const Dashboard = () => {
           </tr>
           <tr>
             <td>Adobe</td>
-            <td class='hide-sm'>Systems Admim</td>
+            <td class='hide-sm'>Systems Admin</td>
             <td class='hide-sm'>Nov 1999 - Sept 2011</td>
             <td>
               <button class='btn btn-danger'>Delete</button>

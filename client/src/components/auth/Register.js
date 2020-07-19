@@ -11,7 +11,7 @@ const Register = props => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      props.history.push('/');
+      props.history.push('/dashboard');
     }
     if (error === 'User already exists') {
       setAlert(error, 'danger');
@@ -41,9 +41,9 @@ const Register = props => {
         password
       });
     }
-    if (password.length < 6 || password2.length < 6) {
-      setAlert('Password must be at least 6 characters', 'danger');
-    }
+    // if (password.length < 6 || password2.length < 6) {
+    //   setAlert('Password must be at least 6 characters', 'danger');
+    // }
   };
 
   return (
