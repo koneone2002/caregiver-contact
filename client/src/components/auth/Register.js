@@ -1,25 +1,48 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import AuthContext from '../../context/auth/authContext';
+import AlertContext from '../../context/alert/alertContext';
 
-const Register = () => {
-  const [formData, setFormData] = useState({
+const Register = props => {
+  const alertContext = useContext(AlertContext);
+  const authContext = useContext(AuthContext);
+  const { register, error, clearErrors, isAuthenticated } = authContext;
+  const { setAlert } = alertContext;
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/');
+    }
+    if (error === 'User already exists') {
+      setAlert(error, 'danger');
+      clearErrors();
+    }
+  }, [error, isAuthenticated, clearErrors, setAlert, props.history]);
+  const [user, setUser] = useState({
     name: '',
     email: '',
     password: '',
     password2: ''
   });
-  const { name, email, password, password2 } = formData;
-  const onChange = e =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  const onSubmit = async e => {
+  const { name, email, password, password2 } = user;
+  const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
+  const onSubmit = e => {
     e.preventDefault();
 
     if (name === '' || email === '' || password === '') {
-      console.log('Please enter all fields');
+      setAlert('Please enter all fields', 'danger');
     } else if (password !== password2) {
-      console.log('Passwords do not Match');
+      setAlert('Passwords do not Match', 'danger');
     } else {
-      console.log('Success');
+      // console.log('Success');
+      register({
+        name,
+        email,
+        password
+      });
+    }
+    if (password.length < 6 || password2.length < 6) {
+      setAlert('Password must be at least 6 characters', 'danger');
     }
   };
 
@@ -29,14 +52,14 @@ const Register = () => {
       <p className='lead'>
         <i className='fas fa-user'></i> Create Your Account
       </p>
-      <form className='form' onSubmit={e => onSubmit(e)}>
+      <form className='form' onSubmit={onSubmit}>
         <div className='form-group'>
           <input
             type='text'
             placeholder='Name'
             name='name'
             value={name}
-            onChange={e => onChange(e)}
+            onChange={onChange}
             // required
           />
         </div>
@@ -46,7 +69,7 @@ const Register = () => {
             placeholder='Email Address'
             name='email'
             value={email}
-            onChange={e => onChange(e)}
+            onChange={onChange}
             // required
           />
           <small className='form-text'>
@@ -61,7 +84,7 @@ const Register = () => {
             name='password'
             // min-length="6"
             value={password}
-            onChange={e => onChange(e)}
+            onChange={onChange}
             // required
           />
         </div>
@@ -72,7 +95,7 @@ const Register = () => {
             name='password2'
             // min-length="6"
             value={password2}
-            onChange={e => onChange(e)}
+            onChange={onChange}
             // required
           />
         </div>

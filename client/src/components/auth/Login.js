@@ -1,17 +1,42 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import AuthContext from '../../context/auth/authContext';
+import AlertContext from '../../context/alert/alertContext';
 
-const Login = () => {
+const Login = props => {
+  const alertContext = useContext(AlertContext);
+  const authContext = useContext(AuthContext);
+  const { login, error, clearErrors, isAuthenticated } = authContext;
+  const { setAlert } = alertContext;
+
   const [user, setUser] = useState({
     email: '',
     password: ''
   });
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push('/');
+    }
+    if (error === 'Invalid Credentials') {
+      setAlert(error, 'danger');
+      clearErrors();
+    }
+    // eslint-disable-next-line
+  }, [error, isAuthenticated, props.history]);
   const { email, password } = user;
   const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
-  const onSubmit = async e => {
+  const onSubmit = e => {
     e.preventDefault();
-
-    console.log('Success');
+    if (email === '' || password === '') {
+      setAlert('Please fill in all fields', 'danger');
+    } else {
+      login({
+        email,
+        password
+      });
+    }
+    //console.log('Success');
   };
 
   return (
@@ -20,14 +45,14 @@ const Login = () => {
       <p className='lead'>
         <i className='fas fa-user'></i> Sign Into Your Account
       </p>
-      <form className='form' onSubmit={e => onSubmit(e)}>
+      <form className='form' onSubmit={onSubmit}>
         <div className='form-group'>
           <input
             type='email'
             placeholder='Email Address'
             name='email'
             value={email}
-            onChange={e => onChange(e)}
+            onChange={onChange}
             // required
           />
         </div>
@@ -38,7 +63,7 @@ const Login = () => {
             name='password'
             // min-length="6"
             value={password}
-            onChange={e => onChange(e)}
+            onChange={onChange}
             // required
           />
         </div>

@@ -4,7 +4,6 @@ import AlertContext from './alertContext';
 import { v4 as uuidv4 } from 'uuid';
 import alertReducer from './alertReducer';
 import { SET_ALERT, REMOVE_ALERT } from '../types';
-import { PromiseProvider } from 'mongoose';
 
 const AlertState = props => {
   const initialState = [];
@@ -19,7 +18,7 @@ const AlertState = props => {
       type: SET_ALERT,
       payload: { msg, type, id }
     });
-    setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }));
+    setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), timeout);
   };
   return (
     <AlertContext.Provider
