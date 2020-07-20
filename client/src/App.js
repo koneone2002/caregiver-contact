@@ -22,10 +22,13 @@ const App = () => (
       <Router>
         <Fragment>
           <Navbar />
+          <div className='container'>
+            <Alerts />
+          </div>
+
           <Switch>
             <Route exact path='/' component={Landing} />
             <div className='container'>
-              <Alerts />
               <PrivateRoute exact path='/dashboard' component={Dashboard} />
               <Route exact path='/register' component={Register} />
               <Route exact path='/login' component={Login} />
