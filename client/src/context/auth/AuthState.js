@@ -3,7 +3,6 @@ import axios from 'axios';
 import setAuthToken from '../../utils/setAuthToken';
 import AuthContext from './authContext';
 import authReducer from './authReducer';
-
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -21,12 +20,14 @@ const AuthState = props => {
     isAuthenticated: null,
     loading: true,
     user: null,
-    error: null
+    errors: null
   };
+
   const [state, dispatch] = useReducer(authReducer, initialState);
 
   // Load User
   const loadUser = async () => {
+    // @todo - load token into global headers
     if (localStorage.token) {
       setAuthToken(localStorage.token);
     }
@@ -38,13 +39,11 @@ const AuthState = props => {
         payload: res.data
       });
     } catch (err) {
-      dispatch({
-        type: AUTH_ERROR
-      });
+      dispatch({ type: AUTH_ERROR });
     }
   };
 
-  // Register User
+  // register user
   const register = async formData => {
     const config = {
       headers: {
@@ -59,15 +58,13 @@ const AuthState = props => {
       });
       loadUser();
     } catch (err) {
-      //console.log(err.response.data.errors[0].msg);
       dispatch({
         type: REGISTER_FAIL,
-        payload: err.response.data.errors[0].msg
+        payload: err.response.data.errors.msg
       });
     }
   };
-
-  // Login User
+  // login user
   const login = async formData => {
     const config = {
       headers: {
@@ -82,10 +79,9 @@ const AuthState = props => {
       });
       loadUser();
     } catch (err) {
-      //console.log(err.response.data.error[0].msg);
       dispatch({
         type: LOGIN_FAIL,
-        payload: err.response.data.error[0].msg
+        payload: err.response.data.msg
       });
     }
   };
@@ -96,24 +92,24 @@ const AuthState = props => {
     });
   };
   // Clear Errors
-  const clearErrors = () => {
-    dispatch({
-      type: CLEAR_ERRORS
-    });
-  };
+  // const clearErrors = () => {
+  //   dispatch({
+  //     type: CLEAR_ERRORS
+  //   });
+  // };
   return (
     <AuthContext.Provider
       value={{
         token: state.token,
         isAuthenticated: state.isAuthenticated,
         loading: state.loading,
-        error: state.error,
         user: state.user,
+        errors: state.errors,
         register,
         loadUser,
         login,
-        logout,
-        clearErrors
+        logout
+        // clearErrors
       }}
     >
       {props.children}

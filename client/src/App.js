@@ -22,18 +22,16 @@ const App = () => (
       <Router>
         <Fragment>
           <Navbar />
+
+          <Route exact path='/' component={Landing} />
           <div className='container'>
             <Alerts />
-          </div>
-
-          <Switch>
-            <Route exact path='/' component={Landing} />
-            <div className='container'>
+            <Switch>
               <PrivateRoute exact path='/dashboard' component={Dashboard} />
               <Route exact path='/register' component={Register} />
               <Route exact path='/login' component={Login} />
-            </div>
-          </Switch>
+            </Switch>
+          </div>
         </Fragment>
       </Router>
     </AlertState>

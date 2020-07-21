@@ -18,7 +18,7 @@ const gravatar = require('gravatar');
 router.post(
   '/',
   [
-    check('name', 'Name is required')
+    check('name', 'Please add name')
       .not()
       .isEmpty(),
     check('email', 'Please include a valid email').isEmail(),
@@ -33,16 +33,13 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
     // res.send('passed');
-
     const { name, email, password } = req.body;
-
     try {
       let user = await User.findOne({ email });
       if (user) {
-        return res
-          .status(400)
-          .json({ errors: [{ msg: 'User already exists' }] });
+        return res.status(400).json({ msg: 'User already exists' });
       }
+
       const avatar = gravatar.url(email, {
         s: '200',
         r: 'pg',
@@ -60,8 +57,7 @@ router.post(
       user.password = await bcrypt.hash(password, salt);
 
       await user.save();
-      //res.send('User saved');
-
+      // res.send('User saved');
       const payload = {
         user: {
           id: user.id
@@ -82,11 +78,21 @@ router.post(
       console.error(err.message);
       res.status(500).send('Server Error');
     }
-
-    // console.log(req.body);
-    // res.send('User Route');
   }
 );
+
+// const avatar = gravatar.url(email, {
+//   s: '200',
+//   r: 'pg',
+//   d: 'mm'
+// });
+
+// user = new User({
+//   name,
+//   email,
+//   avatar,
+//   password
+// });
 // @ route   POST api/users
 // @desc     register user
 // @ access  Public

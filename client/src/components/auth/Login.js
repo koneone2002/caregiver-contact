@@ -6,7 +6,7 @@ import AlertContext from '../../context/alert/alertContext';
 const Login = props => {
   const alertContext = useContext(AlertContext);
   const authContext = useContext(AuthContext);
-  const { login, error, clearErrors, isAuthenticated } = authContext;
+  const { login, errors, clearErrors, isAuthenticated } = authContext;
   const { setAlert } = alertContext;
 
   const [user, setUser] = useState({
@@ -18,12 +18,12 @@ const Login = props => {
     if (isAuthenticated) {
       props.history.push('/dashboard');
     }
-    if (error === 'Invalid Credentials') {
-      setAlert(error, 'danger');
+    if (errors === 'Invalid Credentials') {
+      setAlert(errors, 'danger');
       clearErrors();
     }
     // eslint-disable-next-line
-  }, [error, isAuthenticated, props.history]);
+  }, [errors, isAuthenticated, props.history]);
   const { email, password } = user;
   const onChange = e => setUser({ ...user, [e.target.name]: e.target.value });
   const onSubmit = e => {

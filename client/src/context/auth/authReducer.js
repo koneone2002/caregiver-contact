@@ -39,13 +39,13 @@ export default (state, action) => {
         isAuthenticated: false,
         loading: false,
         user: null,
-        error: action.payload
+        errors: action.payload
       };
-    case CLEAR_ERRORS:
-      return {
-        ...state,
-        error: null
-      };
+    // case CLEAR_ERRORS:
+    //   return {
+    //     ...state,
+    //     errors: null
+    //   };
     default:
       return state;
   }

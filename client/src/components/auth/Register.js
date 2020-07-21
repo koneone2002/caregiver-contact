@@ -6,7 +6,7 @@ import AlertContext from '../../context/alert/alertContext';
 const Register = props => {
   const alertContext = useContext(AlertContext);
   const authContext = useContext(AuthContext);
-  const { register, error, clearErrors, isAuthenticated } = authContext;
+  const { register, errors, clearErrors, isAuthenticated } = authContext;
   const { setAlert } = alertContext;
 
   useEffect(() => {
@@ -14,11 +14,11 @@ const Register = props => {
       props.history.push('/dashboard');
     }
 
-    if (error === 'User already exists') {
-      setAlert(error, 'danger');
+    if (errors === 'User already exists') {
+      setAlert(errors, 'danger');
       clearErrors();
     }
-  }, [error, isAuthenticated, clearErrors, setAlert, props.history]);
+  }, [errors, isAuthenticated, clearErrors, setAlert, props.history]);
   const [user, setUser] = useState({
     name: '',
     email: '',
@@ -35,16 +35,12 @@ const Register = props => {
     } else if (password !== password2) {
       setAlert('Passwords do not Match', 'danger');
     } else {
-      // console.log('Success');
       register({
         name,
         email,
         password
       });
     }
-    // if (password.length < 6 || password2.length < 6) {
-    //   setAlert('Password must be at least 6 characters', 'danger');
-    // }
   };
 
   return (

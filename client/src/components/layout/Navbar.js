@@ -22,6 +22,9 @@ const Navbar = () => {
   const guestLinks = (
     <Fragment>
       <li>
+        <Link to='#!'>Caregivers</Link>
+      </li>
+      <li>
         <Link to='/register'>Register</Link>
       </li>
       <li>
