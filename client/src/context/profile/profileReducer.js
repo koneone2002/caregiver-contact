@@ -8,7 +8,8 @@ import {
   FILTER_PROFILES,
   CLEAR_FILTER,
   PROFILE_ERROR,
-  CLEAR_PROFILES
+  CLEAR_PROFILES,
+  CLEAR_PROFILE
 } from '../types';
 
 export default (state, action) => {
@@ -40,6 +41,14 @@ export default (state, action) => {
           profile => profile._id !== action.payload
         ),
         loading: false
+      };
+    case CLEAR_PROFILE:
+      return {
+        ...state,
+        profile: null,
+        filtered: null,
+        error: null,
+        current: null
       };
     case CLEAR_PROFILES:
       return {

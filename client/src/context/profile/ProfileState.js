@@ -8,6 +8,7 @@ import {
   ADD_PROFILE,
   DELETE_PROFILE,
   CLEAR_PROFILES,
+  CLEAR_PROFILE,
   SET_CURRENT,
   CLEAR_CURRENT,
   PROFILE_ERROR,
@@ -21,7 +22,7 @@ const ProfileState = props => {
     profile: null,
     profiles: [],
     loading: true,
-    error: {}
+    errors: null
   };
 
   const [state, dispatch] = useReducer(profileReducer, initialState);
@@ -106,6 +107,10 @@ const ProfileState = props => {
   const clearProfiles = () => {
     dispatch({ type: CLEAR_PROFILES });
   };
+  // Clear Profile
+  const clearProfile = () => {
+    dispatch({ type: CLEAR_PROFILE });
+  };
   // Set Current Profile
   const setCurrent = profile => {
     dispatch({ type: SET_CURRENT, payload: profile });
@@ -127,13 +132,16 @@ const ProfileState = props => {
   return (
     <ProfileContext.Provider
       value={{
+        profile: state.profile,
         profiles: state.profiles,
         current: state.current,
         filtered: state.filtered,
-        error: state.error,
+        errors: state.errors,
+        loading: state.loading,
         addProfile,
         deleteProfile,
         clearProfiles,
+        clearProfile,
         setCurrent,
         clearCurrent,
         updateProfile,

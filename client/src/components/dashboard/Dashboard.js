@@ -1,26 +1,36 @@
-import React, { useContext, useEffect } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 
 import ProfileContext from '../../context/profile/profileContext';
 import AuthContext from '../../context/auth/authContext';
+import Spinner from '../layout/Spinner';
 const Dashboard = () => {
   const authContext = useContext(AuthContext);
   const profileContext = useContext(ProfileContext);
-  const { user } = authContext;
-  const { getProfile, profile } = profileContext;
+
+  const { user, loadUser } = authContext;
+  const { profile, getProfile, profiles, loading } = profileContext;
   useEffect(() => {
-    authContext.loadUser();
+    loadUser();
     getProfile();
     // eslint-disable-next-line
   }, []);
+  console.log(profile);
 
-  return (
-    <section className='container'>
+  return loading && profile === null ? (
+    <Spinner />
+  ) : (
+    <Fragment>
       <h1 className='large text-primary'>Dashboard</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Welcome{' '}
         {user && user.name.split(' ').slice(0, 1)}
       </p>
-    </section>
+      {profile !== null ? (
+        <Fragment>has </Fragment>
+      ) : (
+        <Fragment>has not</Fragment>
+      )}
+    </Fragment>
   );
 };
 

@@ -1,19 +1,28 @@
 import React, { useContext, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../../context/auth/authContext';
+import ProfileContext from '../../context/profile/profileContext';
 
-const Navbar = () => {
+const Navbar = props => {
   const authContext = useContext(AuthContext);
+  const profileContext = useContext(ProfileContext);
   const { isAuthenticated, logout, user } = authContext;
+  // const { clearProfile } = profileContext;
   const onLogout = () => {
     logout();
   };
   const authLinks = (
     <Fragment>
-      <li>Hello {user && user.name}</li>
+      <li>Hello {user && user.name} </li>
+      <li>
+        <Link to='/dashboard'>
+          <i className='fas fa-user' />{' '}
+          <span className='hide-sm'>Dashboard</span>
+        </Link>
+      </li>
       <li>
         <a onClick={onLogout} href='#!'>
-          <i className='fas fa-sign-out-alt'></i>
+          <i className='fas fa-sign-out-alt' />{' '}
           <span className='hide-sm'>Logout</span>
         </a>
       </li>
