@@ -6,15 +6,15 @@ import Spinner from '../layout/Spinner';
 const Dashboard = () => {
   const authContext = useContext(AuthContext);
   const profileContext = useContext(ProfileContext);
-
   const { user, loadUser } = authContext;
-  const { profile, getProfile, profiles, loading } = profileContext;
+  const { getProfile, profile, loading } = profileContext;
   useEffect(() => {
     loadUser();
+
     getProfile();
+
     // eslint-disable-next-line
   }, []);
-  console.log(profile);
 
   return loading && profile === null ? (
     <Spinner />

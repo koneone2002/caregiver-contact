@@ -49,8 +49,7 @@ export default (state, action) => {
         // filtered: null,
         // error: null,
         // current: null
-        loading: false,
-        repos: []
+        loading: false
       };
     case CLEAR_PROFILES:
       return {
@@ -86,6 +85,7 @@ export default (state, action) => {
     case PROFILE_ERROR:
       return {
         state,
+        profile: null,
         error: action.payload,
         loading: false
       };

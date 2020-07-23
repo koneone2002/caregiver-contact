@@ -12,8 +12,7 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  CLEAR_ERRORS,
-  CLEAR_PROFILE
+  CLEAR_ERRORS
 } from '../types';
 
 const AuthState = props => {
@@ -89,9 +88,6 @@ const AuthState = props => {
   };
   // Logout
   const logout = () => {
-    dispatch({
-      type: CLEAR_PROFILE
-    });
     dispatch({
       type: LOGOUT
     });
