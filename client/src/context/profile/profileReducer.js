@@ -46,9 +46,11 @@ export default (state, action) => {
       return {
         ...state,
         profile: null,
-        filtered: null,
-        error: null,
-        current: null
+        // filtered: null,
+        // error: null,
+        // current: null
+        loading: false,
+        repos: []
       };
     case CLEAR_PROFILES:
       return {
