@@ -261,6 +261,7 @@ img {
 }
 
 .form input[type='submit'],
+.form textarea,
 button {
   font: inherit;
 }

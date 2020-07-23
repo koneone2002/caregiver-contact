@@ -49,10 +49,11 @@ router.post(
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-    const { location, contact, status, skills, bio } = req.body;
+    const { email, location, contact, status, skills, bio } = req.body;
     // Build profile object
     const profileFields = {};
     profileFields.user = req.user.id;
+    if (email) profileFields.email = email;
     if (location) profileFields.location = location;
     if (contact) profileFields.contact = contact;
     if (status) profileFields.status = status;
@@ -60,7 +61,7 @@ router.post(
     if (skills) {
       profileFields.skills = skills.split(',').map(skill => skill.trim());
     }
-    console.log(profileFields.skills);
+    //console.log(profileFields.skills);
     // res.send('Hello');
 
     try {

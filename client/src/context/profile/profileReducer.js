@@ -15,17 +15,18 @@ import {
 export default (state, action) => {
   switch (action.type) {
     case GET_PROFILE:
+    case ADD_PROFILE:
       return {
         ...state,
         profile: action.payload,
         loading: false
       };
-    case ADD_PROFILE:
-      return {
-        ...state,
-        profiles: [action.payload, ...state.profiles],
-        loading: false
-      };
+    // case ADD_PROFILE:
+    //   return {
+    //     ...state,
+    //     profile: [action.payload, ...state.profile],
+    //     loading: false
+    //   };
     case UPDATE_PROFILE:
       return {
         ...state,

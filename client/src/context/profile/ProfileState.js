@@ -3,6 +3,7 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import ProfileContext from './profileContext';
 import profileReducer from './profileReducer';
+
 import {
   GET_PROFILE,
   ADD_PROFILE,
@@ -42,16 +43,17 @@ const ProfileState = props => {
     }
   };
 
-  // Add Profile
-  const addProfile = async profile => {
+  // Add Profile or Update
+  const addProfile = async formData => {
     // contact.id = uuidv4();
-    const config = {
-      headers: {
-        'Content-type': 'application/json'
-      }
-    };
+
     try {
-      const res = await axios.post('/api/profile', profile, config);
+      const config = {
+        headers: {
+          'Content-type': 'application/json'
+        }
+      };
+      const res = await axios.post('/api/profile', formData, config);
       dispatch({
         type: ADD_PROFILE,
         payload: res.data
@@ -59,7 +61,7 @@ const ProfileState = props => {
     } catch (err) {
       dispatch({
         type: PROFILE_ERROR,
-        payload: err.response.msg
+        payload: { msg: err.response.statusText, status: err.response.status }
       });
     }
   };

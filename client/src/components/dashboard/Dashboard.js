@@ -1,5 +1,5 @@
 import React, { Fragment, useContext, useEffect } from 'react';
-
+import { Link } from 'react-router-dom';
 import ProfileContext from '../../context/profile/profileContext';
 import AuthContext from '../../context/auth/authContext';
 import Spinner from '../layout/Spinner';
@@ -28,7 +28,12 @@ const Dashboard = () => {
       {profile !== null ? (
         <Fragment>has </Fragment>
       ) : (
-        <Fragment>has not</Fragment>
+        <Fragment>
+          <p>You have not yet setup a profile, please add some info</p>
+          <Link to='/create-profile' className='btn btn-primary my-1'>
+            Create Profile
+          </Link>
+        </Fragment>
       )}
     </Fragment>
   );
