@@ -1,5 +1,5 @@
-import React, { Fragment, useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Fragment, useContext, useState, useEffect } from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import ProfileContext from '../../context/profile/profileContext';
 import AlertContext from '../../context/alert/alertContext';
 const CreateProfile = props => {
@@ -15,7 +15,7 @@ const CreateProfile = props => {
   const { email, location, contact, status, skills, bio } = formData;
   const profileContext = useContext(ProfileContext);
   const alertContext = useContext(AlertContext);
-  const { addProfile } = profileContext;
+  const { addProfile, profile } = profileContext;
   const { setAlert } = alertContext;
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,16 +25,13 @@ const CreateProfile = props => {
     if (email === '') {
       setAlert('Please enter an email address', 'danger');
     } else {
-      addProfile({
-        email,
-        location,
-        contact,
-        status,
-        skills,
-        bio
-      });
+      addProfile(formData);
+      //console.log(formData);
+      setAlert('Form Submitted', 'success');
+      props.history.push('/dashboard');
     }
   };
+
   return (
     <Fragment>
       <h1 className='large text-primary'>Create Your Profile</h1>

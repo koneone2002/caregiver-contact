@@ -21,12 +21,7 @@ export default (state, action) => {
         profile: action.payload,
         loading: false
       };
-    // case ADD_PROFILE:
-    //   return {
-    //     ...state,
-    //     profile: [action.payload, ...state.profile],
-    //     loading: false
-    //   };
+
     case UPDATE_PROFILE:
       return {
         ...state,
@@ -85,7 +80,7 @@ export default (state, action) => {
       };
     case PROFILE_ERROR:
       return {
-        state,
+        ...state,
         profile: null,
         error: action.payload,
         loading: false
