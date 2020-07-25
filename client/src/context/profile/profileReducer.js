@@ -55,6 +55,7 @@ export default (state, action) => {
         error: null,
         current: null
       };
+
     case SET_CURRENT:
       return {
         ...state,

@@ -38,7 +38,7 @@ const ProfileState = props => {
     } catch (err) {
       dispatch({
         type: PROFILE_ERROR,
-        payload: { msg: err.response.statusText, status: err.response.status }
+        payload: { msg: err.response.msg, status: err.response.msg }
       });
     }
   };
@@ -59,9 +59,13 @@ const ProfileState = props => {
         payload: res.data
       });
     } catch (err) {
+      const errors = err.response.data.errors;
+      if (errors) {
+        errors.forEach(error => error.msg);
+      }
       dispatch({
         type: PROFILE_ERROR,
-        payload: { msg: err.response.statusText, status: err.response.status }
+        payload: { msg: err.response.msg, status: err.response.msg }
       });
     }
   };

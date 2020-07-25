@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ProfileContext from '../../context/profile/profileContext';
 import AuthContext from '../../context/auth/authContext';
 import Spinner from '../layout/Spinner';
+import DashboardActions from './DashboardActions';
 const Dashboard = () => {
   const authContext = useContext(AuthContext);
   const profileContext = useContext(ProfileContext);
@@ -26,7 +27,9 @@ const Dashboard = () => {
         {user && user.name.split(' ').slice(0, 1)}
       </p>
       {profile !== null ? (
-        <Fragment>has </Fragment>
+        <Fragment>
+          <DashboardActions />
+        </Fragment>
       ) : (
         <Fragment>
           <p>You have not yet setup a profile, please add some info</p>
