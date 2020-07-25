@@ -192,7 +192,7 @@ const ProfileState = props => {
   const deleteAccount = async () => {
     if (window.confirm('Are you sure? This can NOT be undone')) {
       try {
-        const res = await axios.delete('/api/profile');
+        // const res = await axios.delete('/api/profile');
         dispatch({ type: CLEAR_PROFILE });
       } catch (err) {
         dispatch({
