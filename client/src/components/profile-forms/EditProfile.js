@@ -12,9 +12,10 @@ const EditProfile = props => {
     bio: ''
   });
 
+  const { email, location, contact, status, skills, bio } = formData;
   const profileContext = useContext(ProfileContext);
   const alertContext = useContext(AlertContext);
-  const { profile, addProfile, getProfile, loading } = profileContext;
+  const { profile, loading, getProfile, addProfile } = profileContext;
   const { setAlert } = alertContext;
 
   useEffect(() => {
@@ -25,20 +26,11 @@ const EditProfile = props => {
       location: loading || !profile.location ? '' : profile.location,
       contact: loading || !profile.contact ? '' : profile.contact,
       status: loading || !profile.status ? '' : profile.status,
-      skills: loading || !profile.skills ? '' : profile.skills,
+      skills: loading || !profile.skills ? '' : profile.skills.join(','),
       bio: loading || !profile.bio ? '' : profile.bio
     });
-  }, [
-    loading,
-    getProfile,
-    profile.bio,
-    profile.email,
-    profile.location,
-    profile.contact,
-    profile.status,
-    profile.skills
-  ]);
-  const { email, location, contact, status, skills, bio } = formData;
+  }, [loading]);
+
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -53,7 +45,7 @@ const EditProfile = props => {
 
   return (
     <Fragment>
-      <h1 className='large text-primary'>Edit Your Profile</h1>
+      <h1 className='large text-primary'>Create Your Profile</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Let's get some information to make your
         profile stand out
@@ -125,7 +117,11 @@ const EditProfile = props => {
             <small className='form-text'>Tell us a little about yourself</small>
           </div>
         </div>
-        <input type='submit' value='Submit' className='btn btn-primary my-1' />
+        <input
+          type='submit'
+          value='Add Profile'
+          className='btn btn-primary my-1'
+        />
         <Link className='btn btn-light my-1' to='/dashboard'>
           Go Back
         </Link>
