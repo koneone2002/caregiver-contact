@@ -29,7 +29,8 @@ const EditProfile = props => {
       skills: loading || !profile.skills ? '' : profile.skills.join(','),
       bio: loading || !profile.bio ? '' : profile.bio
     });
-  }, [loading, getProfile, profile]);
+    // eslint-disable-next-line
+  }, [loading]);
 
   const onChange = e =>
     setFormData({ ...formData, [e.target.name]: e.target.value });

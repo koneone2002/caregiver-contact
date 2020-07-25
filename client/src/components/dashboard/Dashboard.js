@@ -20,11 +20,12 @@ const Dashboard = () => {
     getProfile();
 
     // eslint-disable-next-line
-  }, [loadUser, getProfile]);
+  }, []);
   const onClick = () => {
     deleteAccount();
-    setAlert('Account deleted');
+
     accountDeleted();
+    setAlert('Account Permanently Deleted');
   };
   return loading && profile === null ? (
     <Spinner />
