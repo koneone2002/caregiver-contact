@@ -5,6 +5,7 @@ import {
   SET_CURRENT,
   CLEAR_CURRENT,
   UPDATE_PROFILE,
+  UPDATE_PROFILES,
   FILTER_PROFILES,
   CLEAR_FILTER,
   PROFILE_ERROR,
@@ -16,13 +17,14 @@ export default (state, action) => {
   switch (action.type) {
     case GET_PROFILE:
     case ADD_PROFILE:
+    case UPDATE_PROFILE:
       return {
         ...state,
         profile: action.payload,
         loading: false
       };
 
-    case UPDATE_PROFILE:
+    case UPDATE_PROFILES:
       return {
         ...state,
         profiles: state.profiles.map(profile =>

@@ -85,6 +85,55 @@ const ProfileState = props => {
       });
     }
   };
+
+  // Add Experience
+  const addExperience = async formData => {
+    try {
+      const config = {
+        headers: {
+          'Content-type': 'application/json'
+        }
+      };
+      const res = await axios.put('/api/profile/experience', formData, config);
+      dispatch({
+        type: UPDATE_PROFILE,
+        payload: res.data
+      });
+    } catch (err) {
+      const errors = err.response.data.errors;
+      if (errors) {
+        errors.forEach(error => error.msg);
+      }
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: err.response.msg, status: err.response.msg }
+      });
+    }
+  };
+  // Add Education
+  const addEducation = async formData => {
+    try {
+      const config = {
+        headers: {
+          'Content-type': 'application/json'
+        }
+      };
+      const res = await axios.put('/api/profile/education', formData, config);
+      dispatch({
+        type: UPDATE_PROFILE,
+        payload: res.data
+      });
+    } catch (err) {
+      const errors = err.response.data.errors;
+      if (errors) {
+        errors.forEach(error => error.msg);
+      }
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: err.response.msg, status: err.response.msg }
+      });
+    }
+  };
   // Update Profile
   const updateProfile = async profile => {
     const config = {
@@ -145,6 +194,8 @@ const ProfileState = props => {
         errors: state.errors,
         loading: state.loading,
         addProfile,
+        addExperience,
+        addEducation,
         deleteProfile,
         clearProfiles,
         clearProfile,

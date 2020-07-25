@@ -26,7 +26,7 @@ const CreateProfile = props => {
       setAlert('Please enter an email address', 'danger');
     } else {
       addProfile(formData);
-      //console.log(formData);
+
       setAlert('Profile Created', 'success');
       props.history.push('/dashboard');
     }
