@@ -4,6 +4,8 @@ import ProfileContext from '../../context/profile/profileContext';
 import AuthContext from '../../context/auth/authContext';
 import Spinner from '../layout/Spinner';
 import DashboardActions from './DashboardActions';
+import Experience from './Experience';
+import Education from './Education';
 const Dashboard = () => {
   const authContext = useContext(AuthContext);
   const profileContext = useContext(ProfileContext);
@@ -29,6 +31,8 @@ const Dashboard = () => {
       {profile !== null ? (
         <Fragment>
           <DashboardActions />
+          <Experience experience={profile.experience} />
+          <Education education={profile.education} />
         </Fragment>
       ) : (
         <Fragment>
