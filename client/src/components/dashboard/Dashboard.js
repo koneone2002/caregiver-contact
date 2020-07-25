@@ -2,6 +2,7 @@ import React, { Fragment, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ProfileContext from '../../context/profile/profileContext';
 import AuthContext from '../../context/auth/authContext';
+import AlertContext from '../../context/alert/alertContext';
 import Spinner from '../layout/Spinner';
 import DashboardActions from './DashboardActions';
 import Experience from './Experience';
@@ -9,8 +10,10 @@ import Education from './Education';
 const Dashboard = () => {
   const authContext = useContext(AuthContext);
   const profileContext = useContext(ProfileContext);
-  const { user, loadUser } = authContext;
-  const { getProfile, profile, loading } = profileContext;
+  const alertContext = useContext(AlertContext);
+  const { setAlert } = alertContext;
+  const { user, loadUser, accountDeleted } = authContext;
+  const { getProfile, profile, loading, deleteAccount } = profileContext;
   useEffect(() => {
     loadUser();
 
@@ -18,7 +21,11 @@ const Dashboard = () => {
 
     // eslint-disable-next-line
   }, []);
-
+  const onClick = () => {
+    deleteAccount();
+    accountDeleted();
+    setAlert('Account deleted');
+  };
   return loading && profile === null ? (
     <Spinner />
   ) : (
@@ -33,6 +40,11 @@ const Dashboard = () => {
           <DashboardActions />
           <Experience experience={profile.experience} />
           <Education education={profile.education} />
+          <div className='my-2'>
+            <button className='btn btn-danger' onClick={onClick}>
+              <i className='fas fa-user-minus'></i> Delete My Account
+            </button>
+          </div>
         </Fragment>
       ) : (
         <Fragment>

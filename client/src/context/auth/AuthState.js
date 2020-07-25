@@ -7,6 +7,7 @@ import authReducer from './authReducer';
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
+  ACCOUNT_DELETED,
   USER_LOADED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
@@ -92,7 +93,12 @@ const AuthState = props => {
       type: LOGOUT
     });
   };
-
+  // Account Deleted
+  const accountDeleted = () => {
+    dispatch({
+      type: ACCOUNT_DELETED
+    });
+  };
   //Clear Errors
   const clearErrors = () => {
     dispatch({
@@ -109,6 +115,7 @@ const AuthState = props => {
         errors: state.errors,
         register,
         loadUser,
+        accountDeleted,
         login,
         logout,
         clearErrors
