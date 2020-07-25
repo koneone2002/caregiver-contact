@@ -2,6 +2,7 @@ import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
   USER_LOADED,
+  ACCOUNT_DELETED,
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -31,6 +32,7 @@ export default (state, action) => {
     case REGISTER_FAIL:
     case AUTH_ERROR:
     case LOGIN_FAIL:
+    case ACCOUNT_DELETED:
     case LOGOUT:
       localStorage.removeItem('token');
       return {

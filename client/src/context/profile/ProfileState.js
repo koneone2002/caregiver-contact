@@ -158,6 +158,50 @@ const ProfileState = props => {
       });
     }
   };
+  // Delete experience
+  const deleteExperience = async id => {
+    try {
+      const res = await axios.delete(`/api/profile/experience/${id}`);
+      dispatch({
+        type: UPDATE_PROFILE,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: err.response.msg
+      });
+    }
+  };
+  // Delete education
+  const deleteEducation = async id => {
+    try {
+      const res = await axios.delete(`/api/profile/education/${id}`);
+      dispatch({
+        type: UPDATE_PROFILE,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: err.response.msg
+      });
+    }
+  };
+  // Delete account
+  const deleteAccount = async () => {
+    if (window.confirm('Are you sure? This can NOT be undone')) {
+      try {
+        const res = await axios.delete('/api/profile');
+        dispatch({ type: CLEAR_PROFILE });
+      } catch (err) {
+        dispatch({
+          type: PROFILE_ERROR,
+          payload: err.response.msg
+        });
+      }
+    }
+  };
   // Clear Profiles
   const clearProfiles = () => {
     dispatch({ type: CLEAR_PROFILES });
@@ -196,6 +240,9 @@ const ProfileState = props => {
         addProfile,
         addExperience,
         addEducation,
+        deleteExperience,
+        deleteEducation,
+        deleteAccount,
         deleteProfile,
         clearProfiles,
         clearProfile,

@@ -1,6 +1,7 @@
 export const GET_PROFILE = 'GET_PROFILE';
 export const ADD_PROFILE = 'ADD_PROFILE';
 export const DELETE_PROFILE = 'DELETE_PROFILE';
+export const ACCOUNT_DELETED = 'ACCOUNT_DELETED';
 export const SET_CURRENT = 'SET_CURRENT';
 export const CLEAR_CURRENT = 'CLEAR_CURRENT';
 export const UPDATE_PROFILE = 'UPDATE_PROFILE';
