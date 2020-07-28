@@ -6,6 +6,7 @@ import profileReducer from './profileReducer';
 
 import {
   GET_PROFILE,
+  GET_PROFILES,
   ADD_PROFILE,
   DELETE_PROFILE,
   CLEAR_PROFILES,
@@ -33,6 +34,22 @@ const ProfileState = props => {
       const res = await axios.get('/api/profile/me');
       dispatch({
         type: GET_PROFILE,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: err.response.msg, status: err.response.msg }
+      });
+    }
+  };
+  // Get all Profiles
+  const getProfiles = async () => {
+    dispatch({ type: CLEAR_PROFILE });
+    try {
+      const res = await axios.get('/api/profile');
+      dispatch({
+        type: GET_PROFILES,
         payload: res.data
       });
     } catch (err) {
@@ -251,7 +268,8 @@ const ProfileState = props => {
         updateProfile,
         filterProfiles,
         clearFilter,
-        getProfile
+        getProfile,
+        getProfiles
       }}
     >
       {props.children}

@@ -1,5 +1,6 @@
 import {
   GET_PROFILE,
+  GET_PROFILES,
   ADD_PROFILE,
   DELETE_PROFILE,
   SET_CURRENT,
@@ -23,6 +24,12 @@ export default (state, action) => {
         profile: action.payload,
         loading: false
       };
+    case GET_PROFILES:
+      return {
+        ...state,
+        profiles: payload,
+        loading: false
+      }
 
     case UPDATE_PROFILES:
       return {
