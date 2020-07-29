@@ -60,6 +60,22 @@ const ProfileState = props => {
     }
   };
 
+  // Get all Profiles
+  const getProfileById = async userId => {
+    try {
+      const res = await axios.get(`/api/profile/user/${userId}`);
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: err.response.msg, status: err.response.msg }
+      });
+    }
+  };
+
   // Add Profile or Update
   const addProfile = async formData => {
     // contact.id = uuidv4();
@@ -269,6 +285,7 @@ const ProfileState = props => {
         filterProfiles,
         clearFilter,
         getProfile,
+        getProfileById,
         getProfiles
       }}
     >
