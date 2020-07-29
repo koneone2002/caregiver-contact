@@ -27,9 +27,9 @@ export default (state, action) => {
     case GET_PROFILES:
       return {
         ...state,
-        profiles: payload,
+        profiles: action.payload,
         loading: false
-      }
+      };
 
     case UPDATE_PROFILES:
       return {

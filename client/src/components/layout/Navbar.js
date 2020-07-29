@@ -16,11 +16,15 @@ const Navbar = props => {
     <Fragment>
       <li>Hello {user && user.name} </li>
       <li>
+        <Link to='/profiles'>Caregivers</Link>
+      </li>
+      <li>
         <Link to='/dashboard'>
           <i className='fas fa-user' />{' '}
           <span className='hide-sm'>Dashboard</span>
         </Link>
       </li>
+
       <li>
         <a onClick={onLogout} href='#!'>
           <i className='fas fa-sign-out-alt' />{' '}
@@ -32,7 +36,7 @@ const Navbar = props => {
   const guestLinks = (
     <Fragment>
       <li>
-        <Link to='#!'>Caregivers</Link>
+        <Link to='/profiles'>Caregivers</Link>
       </li>
       <li>
         <Link to='/register'>Register</Link>
