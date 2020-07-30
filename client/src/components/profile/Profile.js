@@ -4,6 +4,9 @@ import Spinner from '../layout/Spinner';
 import ProfileContext from '../../context/profile/profileContext';
 import AuthContext from '../../context/auth/authContext';
 import ProfileTop from './ProfileTop';
+import ProfileAbout from './ProfileAbout';
+import ProfileExperience from './ProfileExperience';
+import ProfileEducation from './ProfileEducation';
 const Profile = ({ match }) => {
   const profileContext = useContext(ProfileContext);
   const authContext = useContext(AuthContext);
@@ -31,6 +34,37 @@ const Profile = ({ match }) => {
             )}
           <div className='profile-grid my-1'>
             <ProfileTop profile={profile} />
+            <ProfileAbout profile={profile} />
+            <div className='profile-exp bg-white p-2'>
+              <h2 className='text-primary'>Experience</h2>
+              {profile.experience.length > 0 ? (
+                <Fragment>
+                  {profile.experience.map(experience => (
+                    <ProfileExperience
+                      key={experience._id}
+                      experience={experience}
+                    />
+                  ))}
+                </Fragment>
+              ) : (
+                <h4>No experience information listed</h4>
+              )}
+            </div>
+            <div className='profile-edu bg-white p-2'>
+              <h2 className='text-primary'>Education</h2>
+              {profile.education.length > 0 ? (
+                <Fragment>
+                  {profile.education.map(education => (
+                    <ProfileEducation
+                      key={education._id}
+                      education={education}
+                    />
+                  ))}
+                </Fragment>
+              ) : (
+                <h4>No education information listed</h4>
+              )}
+            </div>
           </div>
         </Fragment>
       )}
