@@ -1,15 +1,14 @@
 import React, { Fragment, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Spinner from '../layout/Spinner';
 import ProfileContext from '../../context/profile/profileContext';
 import AuthContext from '../../context/auth/authContext';
-
+import ProfileTop from './ProfileTop';
 const Profile = ({ match }) => {
   const profileContext = useContext(ProfileContext);
   const authContext = useContext(AuthContext);
   const { isAuthenticated } = authContext;
-  const { getProfileById, profile, clearProfile, loading } = profileContext;
+  const { getProfileById, profile, loading } = profileContext;
 
   useEffect(() => {
     getProfileById(match.params.id);
@@ -30,6 +29,9 @@ const Profile = ({ match }) => {
                 Edit Profile
               </Link>
             )}
+          <div className='profile-grid my-1'>
+            <ProfileTop profile={profile} />
+          </div>
         </Fragment>
       )}
     </Fragment>
