@@ -1,5 +1,6 @@
 import React, { useContext, Fragment, useEffect } from 'react';
 import PostItem from './PostItem';
+import PostForm from './PostForm';
 import PostContext from '../../context/post/postContext';
 import AlertContext from '../../context/alert/alertContext';
 import Spinner from '../layout/Spinner';
@@ -23,7 +24,7 @@ const Posts = () => {
       <p className='lead'>
         <i className='fas fa-user'></i> Welcome to the community
       </p>
-      {/* Post Form */}
+      <PostForm />
       <div className='posts'>
         {posts.map(post => (
           <PostItem key={post._id} post={post} />

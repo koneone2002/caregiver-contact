@@ -2,7 +2,13 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import PostContext from './postContext';
 import postReducer from './postReducer';
-import { GET_POSTS, POST_ERROR, UPDATE_LIKES, DELETE_POST } from '../types';
+import {
+  GET_POSTS,
+  POST_ERROR,
+  UPDATE_LIKES,
+  DELETE_POST,
+  ADD_POST
+} from '../types';
 const PostState = props => {
   const initialState = {
     posts: [],
@@ -59,6 +65,26 @@ const PostState = props => {
     }
   };
 
+  // Add Post
+  const addPost = async formData => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    try {
+      const res = await axios.post('/api/posts', formData, config);
+      dispatch({
+        type: ADD_POST,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: POST_ERROR,
+        payload: { msg: err.response.msg, status: err.response.msg }
+      });
+    }
+  };
   // Delete Post
   const deletePost = async id => {
     try {
@@ -85,7 +111,8 @@ const PostState = props => {
         getPosts,
         addLike,
         removeLike,
-        deletePost
+        deletePost,
+        addPost
       }}
     >
       {props.children}
