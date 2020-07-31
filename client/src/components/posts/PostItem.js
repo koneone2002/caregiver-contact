@@ -1,15 +1,15 @@
 import React, { Fragment, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import Moment from 'react-moment';
-//import PostContext from '../../context/post/postContext';
+import PostContext from '../../context/post/postContext';
 import AuthContext from '../../context/auth/authContext';
 import AlertContext from '../../context/alert/alertContext';
 
 const PostItem = ({
   post: { _id, text, name, avatar, user, likes, comments, date }
 }) => {
-  //const postContext = useContext(PostContext);
-
+  const postContext = useContext(PostContext);
+  const { addLike, removeLike } = postContext;
   const authContext = useContext(AuthContext);
   const { isAuthenticated } = authContext;
   const alertContext = useContext(AlertContext);
@@ -28,11 +28,11 @@ const PostItem = ({
         <p className='post-date'>
           Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
         </p>
-        <button className='btn'>
+        <button className='btn' onClick={e => addLike(_id)}>
           <i className='fas fa-thumbs-up'></i>
           {likes.length > 0 && <span> {likes.length}</span>}
         </button>
-        <button className='btn'>
+        <button className='btn' onClick={e => removeLike(_id)}>
           <i className='fas fa-thumbs-down'></i>
         </button>
         <Link to={`/post/${_id}`} className='btn btn-primary'>
