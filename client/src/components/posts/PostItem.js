@@ -20,26 +20,32 @@ const PostItem = ({
       <div>
         <a href='profile.html'>
           <img className='round-img' src={avatar} alt='' />
-          <h4>John Doe</h4>
+          <h4>{name}</h4>
         </a>
       </div>
       <div>
-        <p className='my-1'>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum iure
-          totam explicabo dignissimos necessitatibus reprehenderit soluta dolore
-          quis laboriosam eius, tempore aliquam earum ducimus, sapiente impedit
-          consequuntur dolor optio et!
+        <p className='my-1'>{text}</p>
+        <p className='post-date'>
+          Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
         </p>
         <button className='btn'>
           <i className='fas fa-thumbs-up'></i>
-          <span> 4</span>
+          {likes.length > 0 && <span> {likes.length}</span>}
         </button>
         <button className='btn'>
           <i className='fas fa-thumbs-down'></i>
         </button>
-        <a href='post.html' className='btn btn-primary'>
-          Discussion
-        </a>
+        <Link to={`/post/${_id}`} className='btn btn-primary'>
+          Discussion{' '}
+          {comments.length > 0 && (
+            <span className='comment-count'>{comments.length}</span>
+          )}
+        </Link>
+        {isAuthenticated && user === authContext.user._id && (
+          <button type='button' className='btn btn-danger'>
+            <i className='fas fa-times'></i>
+          </button>
+        )}
       </div>
     </div>
   );
