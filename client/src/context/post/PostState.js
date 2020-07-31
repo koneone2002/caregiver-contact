@@ -2,7 +2,7 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import PostContext from './postContext';
 import postReducer from './postReducer';
-import { GET_POSTS, POST_ERROR, UPDATE_LIKES } from '../types';
+import { GET_POSTS, POST_ERROR, UPDATE_LIKES, DELETE_POST } from '../types';
 const PostState = props => {
   const initialState = {
     posts: [],
@@ -59,6 +59,22 @@ const PostState = props => {
     }
   };
 
+  // Delete Post
+  const deletePost = async id => {
+    try {
+      await axios.delete(`/api/posts/${id}`);
+      dispatch({
+        type: DELETE_POST,
+        payload: id
+      });
+    } catch (err) {
+      dispatch({
+        type: POST_ERROR,
+        payload: { msg: err.response.msg, status: err.response.msg }
+      });
+    }
+  };
+
   return (
     <PostContext.Provider
       value={{
@@ -68,7 +84,8 @@ const PostState = props => {
         error: state.error,
         getPosts,
         addLike,
-        removeLike
+        removeLike,
+        deletePost
       }}
     >
       {props.children}

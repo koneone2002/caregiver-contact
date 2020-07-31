@@ -9,12 +9,15 @@ const PostItem = ({
   post: { _id, text, name, avatar, user, likes, comments, date }
 }) => {
   const postContext = useContext(PostContext);
-  const { addLike, removeLike } = postContext;
+  const { addLike, removeLike, deletePost } = postContext;
   const authContext = useContext(AuthContext);
   const { isAuthenticated } = authContext;
   const alertContext = useContext(AlertContext);
   const { setAlert } = alertContext;
-
+  const removePost = e => {
+    deletePost(_id);
+    setAlert('Post deleted', 'success');
+  };
   return (
     <div className='post bg-white my-1 p-1'>
       <div>
@@ -42,7 +45,7 @@ const PostItem = ({
           )}
         </Link>
         {isAuthenticated && user === authContext.user._id && (
-          <button type='button' className='btn btn-danger'>
+          <button type='button' onClick={removePost} className='btn btn-danger'>
             <i className='fas fa-times'></i>
           </button>
         )}
