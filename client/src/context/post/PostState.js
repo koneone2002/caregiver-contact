@@ -8,7 +8,9 @@ import {
   POST_ERROR,
   UPDATE_LIKES,
   DELETE_POST,
-  ADD_POST
+  ADD_POST,
+  ADD_COMMENT,
+  REMOVE_COMMENT
 } from '../types';
 const PostState = props => {
   const initialState = {
@@ -117,6 +119,45 @@ const PostState = props => {
       });
     }
   };
+  // Add Comment
+  const addComment = async (postId, formData) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    };
+    try {
+      const res = await axios.post(
+        `/api/posts/comment/${postId}`,
+        formData,
+        config
+      );
+      dispatch({
+        type: ADD_COMMENT,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: POST_ERROR,
+        payload: { msg: err.response.msg, status: err.response.msg }
+      });
+    }
+  };
+  // Delete Comment
+  const deleteComment = async (postId, commentId) => {
+    try {
+      await axios.delete(`/api/posts/comment/${postId}/${commentId}`);
+      dispatch({
+        type: REMOVE_COMMENT,
+        payload: commentId
+      });
+    } catch (err) {
+      dispatch({
+        type: POST_ERROR,
+        payload: { msg: err.response.msg, status: err.response.msg }
+      });
+    }
+  };
 
   return (
     <PostContext.Provider
@@ -130,7 +171,9 @@ const PostState = props => {
         addLike,
         removeLike,
         deletePost,
-        addPost
+        addPost,
+        addComment,
+        deleteComment
       }}
     >
       {props.children}

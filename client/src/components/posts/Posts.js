@@ -2,14 +2,13 @@ import React, { useContext, Fragment, useEffect } from 'react';
 import PostItem from './PostItem';
 import PostForm from './PostForm';
 import PostContext from '../../context/post/postContext';
-import AlertContext from '../../context/alert/alertContext';
+
 import Spinner from '../layout/Spinner';
 
 const Posts = () => {
   const postContext = useContext(PostContext);
-  const alertContext = useContext(AlertContext);
+
   const { getPosts, posts, loading } = postContext;
-  const { setAlert } = alertContext;
 
   useEffect(() => {
     getPosts();
