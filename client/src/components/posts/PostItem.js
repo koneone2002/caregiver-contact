@@ -6,7 +6,8 @@ import AuthContext from '../../context/auth/authContext';
 import AlertContext from '../../context/alert/alertContext';
 
 const PostItem = ({
-  post: { _id, text, name, avatar, user, likes, comments, date }
+  post: { _id, text, name, avatar, user, likes, comments, date },
+  showActions
 }) => {
   const postContext = useContext(PostContext);
   const { addLike, removeLike, deletePost } = postContext;
@@ -31,27 +32,38 @@ const PostItem = ({
         <p className='post-date'>
           Posted on <Moment format='YYYY/MM/DD'>{date}</Moment>
         </p>
-        <button className='btn' onClick={e => addLike(_id)}>
-          <i className='fas fa-thumbs-up'></i>
-          {likes.length > 0 && <span> {likes.length}</span>}
-        </button>
-        <button className='btn' onClick={e => removeLike(_id)}>
-          <i className='fas fa-thumbs-down'></i>
-        </button>
-        <Link to={`/post/${_id}`} className='btn btn-primary'>
-          Discussion{' '}
-          {comments.length > 0 && (
-            <span className='comment-count'>{comments.length}</span>
-          )}
-        </Link>
-        {isAuthenticated && user === authContext.user._id && (
-          <button type='button' onClick={removePost} className='btn btn-danger'>
-            <i className='fas fa-times'></i>
-          </button>
+        {showActions && (
+          <Fragment>
+            <button className='btn' onClick={e => addLike(_id)}>
+              <i className='fas fa-thumbs-up'></i>
+              {likes.length > 0 && <span> {likes.length}</span>}
+            </button>
+            <button className='btn' onClick={e => removeLike(_id)}>
+              <i className='fas fa-thumbs-down'></i>
+            </button>
+            <Link to={`/posts/${_id}`} className='btn btn-primary'>
+              Discussion{' '}
+              {comments.length > 0 && (
+                <span className='comment-count'>{comments.length}</span>
+              )}
+            </Link>
+            {isAuthenticated && user === authContext.user._id && (
+              <button
+                type='button'
+                onClick={removePost}
+                className='btn btn-danger'
+              >
+                <i className='fas fa-times'></i>
+              </button>
+            )}
+          </Fragment>
         )}
       </div>
     </div>
   );
+};
+PostItem.defaultProps = {
+  showActions: true
 };
 
 export default PostItem;

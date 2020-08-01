@@ -4,6 +4,7 @@ import PostContext from './postContext';
 import postReducer from './postReducer';
 import {
   GET_POSTS,
+  GET_POST,
   POST_ERROR,
   UPDATE_LIKES,
   DELETE_POST,
@@ -101,6 +102,22 @@ const PostState = props => {
     }
   };
 
+  // Get Post
+  const getPost = async id => {
+    try {
+      const res = await axios.get(`/api/posts/${id}`);
+      dispatch({
+        type: GET_POST,
+        payload: res.data
+      });
+    } catch (err) {
+      dispatch({
+        type: POST_ERROR,
+        payload: { msg: err.response.msg, status: err.response.msg }
+      });
+    }
+  };
+
   return (
     <PostContext.Provider
       value={{
@@ -109,6 +126,7 @@ const PostState = props => {
         loading: state.loading,
         error: state.error,
         getPosts,
+        getPost,
         addLike,
         removeLike,
         deletePost,
