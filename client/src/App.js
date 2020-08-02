@@ -24,7 +24,7 @@ const App = () => (
             <Fragment>
               <Navbar />
               <Route exact path='/' component={Landing} />
-              <Routes component={Routes} />
+              <Route component={Routes} />
             </Fragment>
           </Router>
         </PostState>
