@@ -23,7 +23,6 @@ const App = () => (
           <Router>
             <Fragment>
               <Navbar />
-
               <Route exact path='/' component={Landing} />
               <Routes component={Routes} />
             </Fragment>
