@@ -12,6 +12,7 @@ const Education = ({ education }) => {
     <tr key={edu._id}>
       <td>{edu.school}</td>
       <td className='hide-sm'>{edu.fieldofstudy}</td>
+
       <td>
         <button
           className='btn btn-danger'
@@ -33,6 +34,7 @@ const Education = ({ education }) => {
           <tr>
             <th>School</th>
             <th className='hide-sm'>Field of Study</th>
+            <th className='hide-sm'>{''}</th>
           </tr>
         </thead>
         <tbody>{educations}</tbody>

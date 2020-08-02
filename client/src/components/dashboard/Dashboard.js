@@ -37,7 +37,7 @@ const Dashboard = () => {
         {user && user.name.split(' ').slice(0, 1)}
       </p>
       {profile !== null ? (
-        <Fragment>
+        <Fragment className='dboardContainer'>
           <DashboardActions />
           <Experience experience={profile.experience} />
           <Education education={profile.education} />
