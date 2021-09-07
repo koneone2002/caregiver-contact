@@ -1,5 +1,5 @@
 {
-  "mongoURI": "mongodb+srv://katie123:katie123@cluster0.djca9.mongodb.net/<dbname>?retryWrites=true&w=majority",
+  "mongoURI": "mongodb+srv://katie123:katie123@cluster0.djca9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
 
   "jwtSecret": "thisIsTheSuperSecretSecret"
 }
